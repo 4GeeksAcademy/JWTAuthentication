@@ -2,8 +2,11 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
+import  Login from "./pages/login.js"
+import Signup from "./pages/signUp.js"
 import { Home } from "./pages/home";
+import { Private } from "./pages/Private.js"
+
 
 import injectContext from "./store/appContext";
 
@@ -26,8 +29,10 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<h1>Not found!</h1>} />
-                        {/* sign up */}
-                        {/* log-in */}
+                        <Route element={<Login />} path="/login" />
+                        <Route element={<Signup />} path="/signup" />
+                        <Route element={<Private />} path="/private" />
+                        
                     </Routes>
                     <Footer />
                 </ScrollToTop>

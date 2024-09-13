@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			login: async (email, password) => {
 				try {
 					let response = await fetch(process.env.BACKEND_URL + "/api/login", {
-						method="POST", 
+						method:"POST", 
 						headers: {
 							"Content-Type": "application/json" 
 						},
@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					else if (response.status === 401){
 						return false;
 					} else {
-						console.log("unexpected error occurred on login", response.status):
+						console.log("unexpected error occurred on login", response.status);
 						return false;
 					}
 				} catch(error){
@@ -46,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			signUp: async(email, password) => {
 				try{
 					let response = await fetch(process.env.BACKEND_URL + "/api/sign-up",{
-						method="POST",
+						method:"POST",
 						headers: {
 							"Content-Type": "application/json"
 						},
@@ -60,6 +60,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}catch(error){
 					console.log("There was a error during sign up", error);
 					throw error;	
+				}
+			},
+			goPrivate: async() => {
+				if(sessionStorage.getItem("token")) {
+					try{
+						let response = await fetch(process.env.BACKEND_URL + "/api/private", {
+							headers: {Authorization: "Bearer " + sessionStorage.getItem("token")}
+						}) 
+						if (!response.ok) {return false}
+						else{
+							let data = await response.json()
+							console.log(data)
+							return true
+						}
+					}
+					catch(error){
+						console.log(error)
+						return false
+					}
 				}
 			}
 		}
